@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import auxiliares.InOut;
 
@@ -18,13 +19,13 @@ public class FuncoesConta {
 		int op;
 		do {
 			String opcoes = "Digite um dos Numeros abaixo:\n" + "\n1 - Cadastrar Conta\n" + "2 - Alterar Conta\n"
-					+ "3 - Deletar Conta\n" + "4 - Deletar todas Contas\n" + "5 - Relatórios Gerenciais\n"
+					+ "3 - Deletar Conta\n" + "4 - Deletar todas Contas\n" + "5 - RelatÃ³rios Gerenciais\n"
 					+ "0 - Sair\n\n";
 			op = InOut.InInt(opcoes);
 			switch (op) {
 			case 0:
 				Salvar();
-				InOut.OutMessage("O programa será Finalizado", "Atenção");
+				InOut.OutMessage("O programa serÃ¡ Finalizado", "AtenÃ§Ã£o");
 				break;
 			case 1:
 				CadastrarConta();
@@ -42,7 +43,7 @@ public class FuncoesConta {
 				MenuRelatoriosGerencias();
 				break;
 			default:
-				InOut.OutMessage("Opção Invalida!", "Erro!");
+				InOut.OutMessage("OpÃ§Ã£o Invalida!", "Erro!");
 				break;
 			}
 		} while (op != 0);
@@ -58,7 +59,7 @@ public class FuncoesConta {
 			op = InOut.InInt(opcoes);
 			switch (op) {
 			case 0:
-				Salvar();				
+				Salvar();
 				break;
 			case 1:
 				ListaConta();
@@ -69,8 +70,14 @@ public class FuncoesConta {
 			case 3:
 				ListaContaPorSaldo();
 				break;
+			case 4:
+				ListaContasNegativas();
+				break;
+			case 5:
+				Lista3MaioresContas();
+				break;
 			default:
-				InOut.OutMessage("Opção Invalida!", "Erro!");
+				InOut.OutMessage("OpÃ§Ã£o Invalida!", "Erro!");
 				break;
 			}
 		} while (op != 0);
@@ -112,7 +119,7 @@ public class FuncoesConta {
 		double cPoupanca;
 		do {
 			cCorrente = InOut.InInt("Digite o Saldo da Conta-Corrente:");
-			cPoupanca = InOut.InInt("Digite o Saldo da Conta-Poupança:");
+			cPoupanca = InOut.InInt("Digite o Saldo da Conta-PoupanÃ§a:");
 
 		} while (cCorrente <= 0 || cPoupanca <= 0);
 		Conta conta = new Conta(nome, cCorrente, cPoupanca);
@@ -127,8 +134,8 @@ public class FuncoesConta {
 		String relatorio = "";
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
-			relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
-					+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+			relatorio += "\nNÃºmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+					+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-PoupanÃ§a: R$"
 					+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
 		}
 		// Salvar();
@@ -140,12 +147,30 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
+		Collections.sort(listaConta);
+		String relatorio = "";
+		for (int i = 0; i <= 2; i++) {
+			Conta conta = listaConta.get(i);
+			relatorio += "\nNÃºmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+					+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-PoupanÃ§a: R$"
+					+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+		}
+		InOut.OutMessage(relatorio);
+	}
+
+	public static void ListaContasNegativas() throws IOException {
+		if (listaConta.isEmpty()) {
+			InOut.OutMessage("Nenhuma Conta Cadastrada");
+			return;
+		}
 		String relatorio = "";
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
-			relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
-					+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
-					+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+			if (conta.getSaldoCCorrente() < 0) {
+				relatorio += "\nNÃºmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-PoupanÃ§a: R$"
+						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+			}
 		}
 		InOut.OutMessage(relatorio);
 	}
@@ -160,8 +185,8 @@ public class FuncoesConta {
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
 			if (valorContaPesquisar >= conta.getSaldoCCorrente()) {
-				relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
-						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+				relatorio += "\nNÃºmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-PoupanÃ§a: R$"
 						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
 			}
 		}
@@ -196,8 +221,8 @@ public class FuncoesConta {
 			Conta conta = listaConta.get(i);
 			String relatorio = "";
 			if (nomeContaPesquisar.equalsIgnoreCase(conta.getNome())) {
-				relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
-						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+				relatorio += "\nNÃºmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-PoupanÃ§a: R$"
 						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
 				InOut.OutMessage(relatorio);
 
