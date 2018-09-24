@@ -1,6 +1,6 @@
 package negocios;
 
-public class Conta {
+public class Conta implements Comparable<Conta>{
 
 	private String nome;
 	private int numConta;
@@ -51,6 +51,17 @@ public class Conta {
 
 	public void setSaldoCPoupanca(double saldoCPoupanca) {
 		this.saldoCPoupanca = saldoCPoupanca;
+	}
+
+	@Override
+	public int compareTo(Conta outraConta) {
+		 if (this.saldoCCorrente > outraConta.getSaldoCCorrente()) {
+	          return -1;
+	     }
+	     if (this.saldoCCorrente < outraConta.getSaldoCCorrente()) {
+	          return 1;
+	     }
+	     return 0;
 	}
 
 }
