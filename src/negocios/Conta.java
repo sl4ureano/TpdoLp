@@ -1,21 +1,20 @@
 package negocios;
 
 public class Conta {
-	
+
 	private String nome;
 	private int numConta;
 	private double saldoCCorrente;
 	private double saldoCPoupanca;
 	private static int contadorConta = 0;
-	
-	
+
 	public Conta() {
 		contadorConta++;
-		this.numConta = contadorConta;		
+		this.numConta = contadorConta;
 	}
-	
-	public Conta(String nome, double saldoCCorrente, double saldoCPoupanca) {		
-		contadorConta++;		
+
+	public Conta(String nome, double saldoCCorrente, double saldoCPoupanca) {
+		contadorConta++;
 		this.numConta = contadorConta;
 		this.nome = nome;
 		this.saldoCCorrente = saldoCCorrente;
@@ -54,6 +53,4 @@ public class Conta {
 		this.saldoCPoupanca = saldoCPoupanca;
 	}
 
-	
-	
 }
