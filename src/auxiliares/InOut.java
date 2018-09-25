@@ -15,9 +15,14 @@ public class InOut {
 		return in;
 	}
 	
-	public static double InDouble(String titulo){
-		double in = Double.parseDouble(JOptionPane.showInputDialog(titulo));		
-		return in;
+	public static double InDouble(String titulo) {
+		try {
+			double in = Double.parseDouble(JOptionPane.showInputDialog(titulo));
+			return in;
+		} catch (Exception e) {
+			return 0;
+		}
+
 	}
 	
 	public static String InString(String titulo){
