@@ -328,7 +328,7 @@ public class FuncoesConta {
 		}
 		listaConta.clear();
 		Salvar();
-		InOut.OutMessage("Todos as Contas foram Apagadas!");
+		InOut.OutMessage("Todas as Contas foram Apagadas!");
 	}
 
 }
