@@ -9,7 +9,7 @@ public class TestaApp {
 
 	public static void main(String[] args) throws IOException {
 		FuncoesConta.LerTxt();
-		FuncoesConta.Menu();
+		FuncoesConta.MenuPrincipal();
 	}
 
 }
