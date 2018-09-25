@@ -116,44 +116,37 @@ public class FuncoesConta {
 	}
 
 	public static void CadastrarConta() throws IOException {
-		String nome = InOut.InString("Insira o Nome do Titular da Conta:");
-		double cCorrente = 0;
-		double cPoupanca = 0;
+		String nome;
+		double cCorrente;
+		double cPoupanca;
+
+		nome = InOut.InString("Insira o Nome do Titular da Conta:");
+		cCorrente = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
+		cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Poupança:");
 
 		do {
+
 			if (verificaNome(nome)) {
 				InOut.OutMessage("Já existe uma Conta com esse Nome!");
 				nome = InOut.InString("Insira o Nome do Titular da Conta:");
 			}
 
-			try {
-				if (!nome.isEmpty()) {
-
-				} else {
-					InOut.OutMessage("Nome Não pode ficar vazia");
-					nome = InOut.InString("Insira o Nome do Titular da Conta:");
-				}
-
-			} catch (Exception e) {
-				InOut.OutMessage("Nome Não pode ficar vazia");
+			if (nome.isEmpty()) {
+				InOut.OutMessage("Campo Nome Não pode ficar vazio");
 				nome = InOut.InString("Insira o Nome do Titular da Conta:");
 			}
 
-			try {
-				cCorrente = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
-
-			} catch (Exception e) {
-				InOut.OutMessage("Conta-Corrente Não pode ficar vazia ou igual a 0");
+			if (cCorrente == 0) {
+				InOut.OutMessage("Campo Conta-Corrente Não pode ficar vazio");
 				cCorrente = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
 			}
-			try {
-				cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Poupança:");
-			} catch (Exception e) {
-				InOut.OutMessage("Conta-Poupança Não pode ficar vazia ou igual a 0");
-				cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Poupança:");
+
+			if (cPoupanca == 0) {
+				InOut.OutMessage("Campo Conta-Poupança Não pode ficar vazio");
+				cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
 			}
 
-		} while (verificaNome(nome) || cCorrente <= 0 || cPoupanca <= 0);
+		} while (verificaNome(nome) || nome.isEmpty() || cCorrente <= 0 || cPoupanca <= 0);
 		Conta conta = new Conta(nome, cCorrente, cPoupanca);
 		listaConta.add(conta);
 		Salvar();
