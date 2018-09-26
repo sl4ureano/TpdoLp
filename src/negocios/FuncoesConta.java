@@ -51,9 +51,9 @@ public class FuncoesConta {
 		int op;
 		do {
 			String opcoes = "Digite um dos Numeros abaixo:\n" + "\n1 - Listar todas as Contas\n"
-					+ "2 - Procurar Conta pelo Nome do Titular\n" + "3 - Procurar Conta por Saldo\n"
-					+ "4 - Listar Contas com Saldo Negativo\n" + "5 -  Listar Contas com os Maiores Saldo\n"
-					+ "0 - Voltar\n\n";
+					+ "2 - Procurar Conta pelo Nome do Titular\n" + "3 - Procurar Conta pelo Número\n"
+					+ "4 - Procurar Conta por Saldo\n" + "5 - Listar Contas com Saldo Negativo\n"
+					+ "6 -  Listar Contas com os Maiores Saldo\n" + "0 - Voltar\n\n";
 			op = InOut.InInt(opcoes);
 			switch (op) {
 			case 0:
@@ -63,15 +63,18 @@ public class FuncoesConta {
 				ListaConta();
 				break;
 			case 2:
-				ProcurarConta();
+				ProcurarContaPeloNome();
 				break;
 			case 3:
-				ListaContaPorSaldo();
+				ProcurarContaPeloNumero();
 				break;
 			case 4:
-				ListaContasNegativas();
+				ListaContaPorSaldo();
 				break;
 			case 5:
+				ListaContasNegativas();
+				break;
+			case 6:
 				Lista3MaioresContas();
 				break;
 			default:
@@ -126,11 +129,6 @@ public class FuncoesConta {
 
 		do {
 
-			if (verificaNome(nome)) {
-				InOut.OutMessage("Já existe uma Conta com esse Nome!");
-				nome = InOut.InString("Insira o Nome do Titular da Conta:");
-			}
-
 			if (nome.isEmpty()) {
 				InOut.OutMessage("Campo Nome Não pode ficar vazio");
 				nome = InOut.InString("Insira o Nome do Titular da Conta:");
@@ -146,10 +144,19 @@ public class FuncoesConta {
 				cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
 			}
 
-		} while (verificaNome(nome) || nome.isEmpty() || cCorrente <= 0 || cPoupanca <= 0);
+		} while (nome.isEmpty() || cCorrente <= 0 || cPoupanca <= 0);
 		Conta conta = new Conta(nome, cCorrente, cPoupanca);
 		listaConta.add(conta);
 		Salvar();
+	}
+
+	public static boolean verificaConta(int conta) {
+		boolean verifica = false;
+		for (int x = 0; x < listaConta.size(); x++) {
+			if (listaConta.get(x).getNumConta() == conta)
+				verifica = true;
+		}
+		return verifica;
 	}
 
 	public static boolean verificaNome(String nome) {
@@ -251,14 +258,14 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
-		String nomeContaPesquisar = InOut.InString("Digite o Nome do Titular da Conta que deseja Editar:");
+		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Editar:");
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
-			if (!verificaNome(nomeContaPesquisar)) {
+			if (!verificaConta(numConta)) {
 				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
 				break;
 			}
-			if (nomeContaPesquisar.equalsIgnoreCase(conta.getNome())) {
+			if (numConta == conta.getNumConta()) {
 				String nomeNovo = InOut.InString("Digite o novo Nome do Titular:");
 				double cCorrente = InOut.InDouble("Digite o Saldo da Conta-Corrente:");
 				double cPoupanca = InOut.InDouble("Digite o Saldo da Conta-Poupança:");
@@ -272,7 +279,30 @@ public class FuncoesConta {
 
 	}
 
-	public static void ProcurarConta() {
+	public static void ProcurarContaPeloNumero() {
+		if (listaConta.size() == 0) {
+			InOut.OutMessage("Nenhuma Conta Cadastrada");
+			return;
+		}
+		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Procurar:");
+		for (int i = 0; i < listaConta.size(); i++) {
+			Conta conta = listaConta.get(i);
+			String relatorio = "";
+			if (!verificaConta(numConta)) {
+				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
+				break;
+			}
+			if (numConta == conta.getNumConta()) {
+				relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+				InOut.OutMessage(relatorio);
+
+			}
+		}
+	}
+
+	public static void ProcurarContaPeloNome() {
 		if (listaConta.size() == 0) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
@@ -300,14 +330,14 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
-		String nomeContaPesquisar = InOut.InString("Digite o Nome do Titular da Conta que deseja Deletar:");
+		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Deletar:");
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
-			if (!verificaNome(nomeContaPesquisar)) {
+			if (!verificaConta(numConta)) {
 				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
 				break;
 			}
-			if (nomeContaPesquisar.equalsIgnoreCase(conta.getNome())) {
+			if (numConta == conta.getNumConta()) {
 				if (conta.getSaldoCCorrente() > 0 && conta.getSaldoCPoupanca() > 0) {
 					InOut.OutMessage("Impossivel Deletar uma conta com Saldo Maior que 0!");
 					break;
