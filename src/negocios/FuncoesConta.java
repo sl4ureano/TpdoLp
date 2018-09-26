@@ -190,12 +190,22 @@ public class FuncoesConta {
 		}
 		Collections.sort(listaConta);
 		String relatorio = "";
-		for (int i = 0; i <= 2; i++) {
-			Conta conta = listaConta.get(i);
-			relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
-					+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
-					+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+		if (listaConta.size() >= 3) {
+			for (int i = 0; i <= 2; i++) {
+				Conta conta = listaConta.get(i);
+				relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+			}
+		} else {
+			for (int i = 0; i < listaConta.size(); i++) {
+				Conta conta = listaConta.get(i);
+				relatorio += "\nNúmero da Conta: " + conta.getNumConta() + "\nNome do Titular: " + conta.getNome()
+						+ "\nSaldo Conta-Corrente: R$" + conta.getSaldoCCorrente() + "\nSaldo Conta-Poupança: R$"
+						+ conta.getSaldoCPoupanca() + "\n----------------------------------------------------------\r";
+			}
 		}
+
 		InOut.OutMessage(relatorio);
 	}
 
@@ -258,11 +268,15 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
-		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Editar:");
+		int numConta = 0;
+		try {
+			numConta = InOut.InInt("Digite o Numero da Conta que deseja Editar:");
+		} catch (Exception e) {
+		}
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
 			if (!verificaConta(numConta)) {
-				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
+				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Número!");
 				break;
 			}
 			if (numConta == conta.getNumConta()) {
@@ -284,12 +298,16 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
-		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Procurar:");
+		int numConta = 0;
+		try {
+			numConta = InOut.InInt("Digite o Numero da Conta que deseja Procurar:");
+		} catch (Exception e) {
+		}	
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
 			String relatorio = "";
 			if (!verificaConta(numConta)) {
-				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
+				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Número!");
 				break;
 			}
 			if (numConta == conta.getNumConta()) {
@@ -330,11 +348,15 @@ public class FuncoesConta {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
 			return;
 		}
-		int numConta = InOut.InInt("Digite o Numero da Conta que deseja Deletar:");
+		int numConta = 0;
+		try {
+			numConta = InOut.InInt("Digite o Numero da Conta que deseja Deletar:");
+		} catch (Exception e) {
+		}		
 		for (int i = 0; i < listaConta.size(); i++) {
 			Conta conta = listaConta.get(i);
 			if (!verificaConta(numConta)) {
-				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Nome!");
+				InOut.OutMessage("Nenhuma Conta Cadastrada com esse Número!");
 				break;
 			}
 			if (numConta == conta.getNumConta()) {
