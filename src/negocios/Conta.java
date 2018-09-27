@@ -1,13 +1,13 @@
 package negocios;
 
 public class Conta implements Comparable<Conta>{
-
+        // declaração dos atributos
 	private String nome;
 	private int numConta;
 	private double saldoCCorrente;
-	private double saldoCPoupanca;
+	private double saldoCPoupanca;	 
 	private static int contadorConta = 0;
-
+        //construtor com um sistema de auto_increment, assim nenhuma conta terá o mesmo número
 	public Conta() {
 		contadorConta++;
 		this.numConta = contadorConta;
@@ -52,7 +52,8 @@ public class Conta implements Comparable<Conta>{
 	public void setSaldoCPoupanca(double saldoCPoupanca) {
 		this.saldoCPoupanca = saldoCPoupanca;
 	}
-
+        //esse metodo é obrigatório para o uso do Collection.Sort usado para verificar as 3MaioresContas na classe FuncoesConta
+	//Nele eu estou ordenando os itens da Arraylist de acordo com o saldoCCorrente do maior para o menor
 	@Override
 	public int compareTo(Conta outraConta) {
 		 if (this.saldoCCorrente > outraConta.getSaldoCCorrente()) {
