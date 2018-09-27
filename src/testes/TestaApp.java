@@ -8,7 +8,9 @@ import auxiliares.*;
 public class TestaApp {
 
 	public static void main(String[] args) throws IOException {
+		//Inicio a aplicação obtendo informaçoes do Txt e jogando em um arraylist a partir do metodo LerTxt()
 		FuncoesConta.LerTxt();
+		//Logo após inicio o Menu Principal chamando o metodo MenuPrincipal()
 		FuncoesConta.MenuPrincipal();
 	}
 
