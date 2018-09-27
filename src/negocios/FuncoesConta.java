@@ -10,9 +10,9 @@ import java.util.Collections;
 import auxiliares.InOut;
 
 public class FuncoesConta {
-
+        //Declaro a lista que será usada como base para todo o sistema
 	private static ArrayList<Conta> listaConta = new ArrayList<Conta>();
-
+        //Menu principal para chamar os outros metodos
 	public static void MenuPrincipal() throws IOException {
 		int op;
 		do {
@@ -46,7 +46,7 @@ public class FuncoesConta {
 			}
 		} while (op != 0);
 	}
-
+        //Menu secundário para chamar os outros metodos
 	public static void MenuRelatoriosGerencias() throws IOException {
 		int op;
 		do {
@@ -83,7 +83,7 @@ public class FuncoesConta {
 			}
 		} while (op != 0);
 	}
-
+        //Metodo para jogar todas as informacoes do txt para dentro da memoria(Arraylist)
 	public static void LerTxt() throws IOException {
 
 		try (BufferedReader in = new BufferedReader(new FileReader(InOut.arquivo))) {
@@ -101,7 +101,7 @@ public class FuncoesConta {
 			InOut.OutMessage("Error ao Importar contas do txt");
 		}
 	}
-
+        //Metodo para salvar todas as informacoes da memoria(Arraylist) dentro do txt
 	public static void Salvar() throws IOException {
 		try (FileWriter arq = new FileWriter(InOut.arquivo)) {
 
@@ -117,7 +117,7 @@ public class FuncoesConta {
 		}
 
 	}
-
+        //Metodo para cadastrar uma nova conta
 	public static void CadastrarConta() throws IOException {
 		String nome;
 		double cCorrente;
@@ -149,7 +149,7 @@ public class FuncoesConta {
 		listaConta.add(conta);
 		Salvar();
 	}
-
+        //metodo para verificar se determiada conta existe passando o parametro do numero dela
 	public static boolean verificaConta(int conta) {
 		boolean verifica = false;
 		for (int x = 0; x < listaConta.size(); x++) {
@@ -158,7 +158,7 @@ public class FuncoesConta {
 		}
 		return verifica;
 	}
-
+        //metodo para verificar se determiada conta existe passando o parametro do nome do titular dela
 	public static boolean verificaNome(String nome) {
 		boolean verifica = false;
 		for (int x = 0; x < listaConta.size(); x++) {
@@ -167,7 +167,7 @@ public class FuncoesConta {
 		}
 		return verifica;
 	}
-
+        //metodo para listar todas as contas
 	public static void ListaConta() throws IOException {
 		if (listaConta.isEmpty()) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -182,7 +182,7 @@ public class FuncoesConta {
 		}
 		InOut.OutMessage(relatorio);
 	}
-
+         //metodo para as 3 maiores contas
 	public static void Lista3MaioresContas() throws IOException {
 		if (listaConta.isEmpty()) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -208,7 +208,7 @@ public class FuncoesConta {
 
 		InOut.OutMessage(relatorio);
 	}
-
+        //metodo para listar todas as contas negativas
 	public static void ListaContasNegativas() throws IOException {
 		if (listaConta.isEmpty()) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -236,7 +236,7 @@ public class FuncoesConta {
 		}
 
 	}
-
+         //metodo para listar contas a partir de determinado saldo
 	public static void ListaContaPorSaldo() throws IOException {
 		if (listaConta.isEmpty()) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -262,7 +262,7 @@ public class FuncoesConta {
 			InOut.OutMessage(relatorio);
 		}
 	}
-
+         //metodo para alterar conta a partir do numero dela
 	public static void AlterarConta() throws IOException {
 		if (listaConta.size() == 0) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -292,7 +292,7 @@ public class FuncoesConta {
 		}
 
 	}
-
+        //metodo para procurar contas a partir do numero dela
 	public static void ProcurarContaPeloNumero() {
 		if (listaConta.size() == 0) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -319,7 +319,7 @@ public class FuncoesConta {
 			}
 		}
 	}
-
+         //metodo para procurar conta a partir do nome do titular
 	public static void ProcurarContaPeloNome() {
 		if (listaConta.size() == 0) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -342,7 +342,7 @@ public class FuncoesConta {
 			}
 		}
 	}
-
+         //metodo para deletar conta a partir do numero dela
 	public static void DeletarConta() throws IOException {
 		if (listaConta.size() == 0) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
@@ -372,7 +372,7 @@ public class FuncoesConta {
 			}
 		}
 	}
-
+         //metodo para apagar todas as contas
 	public static void ApagarContas() throws IOException {
 		if (listaConta.isEmpty()) {
 			InOut.OutMessage("Nenhuma Conta Cadastrada");
