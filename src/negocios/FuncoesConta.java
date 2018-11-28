@@ -102,7 +102,7 @@ public class FuncoesConta {
             }
             in.close();
         } catch (Exception ex) {
-            InOut.OutMessage("Error ao Importar contas do txt");
+            //InOut.OutMessage("Error ao Importar contas do txt");
         }
     }
 
