@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 public class InOut {
         //Declarando a constante com o nome do arquivo que será usado para ler e gravar todas as informacoes do sistema
 	public static final String arquivo = "contas.txt";
+	public static final String senha = "teste";
         //Convertendo String para Int vindas do JOptionPane e retornando
 	public static int InInt(String titulo) {
 		try {
